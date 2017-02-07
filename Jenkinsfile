@@ -21,6 +21,8 @@ volumes: []) {
     env.HELMPARAM_nodePorts_jenkins = 32004
     env.HELMPARAM_services_backend_proxy = 'something something'
     env.HELMPARAM_services_other = 'darkside'
-    env.HELMREQ_loadbalancer = '1.4.5'
+    env.HELMREQ_loadbalancer = '1.2.3'
+    env.HELMREQ_jenkinsbase = '4.5.6'
+    env.HELMREQ_someotherreq = '7.8.9'
   }
 }
