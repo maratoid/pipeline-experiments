@@ -9,36 +9,6 @@ import hudson.model.Cause
 
 @Field final String PIPELINE = 'upstream'
 
-def getUpstreamEnv() {
-  def upstreamEnv = new EnvVars()
-  def upstreamCause = currentBuild.rawBuild.getCause(Cause$UpstreamCause)
-
-  if (upstreamCause) {
-    def upstreamJobName = upstreamCause.properties.upstreamProject
-    def upstreamBuild = Jenkins.instance
-                            .getItemByFullName(upstreamJobName)
-                            .getLastBuild()
-    upstreamEnv = upstreamBuild.getAction(EnvActionImpl).getEnvironment()
-  }
-
-  return upstreamEnv
-}
-
-def getParamByName (name) {
-  return getUpstreamEnv().get(name)
-}
-
-def getDependencies (dependendcyName) {
-  def keyset = getUpstreamEnv().keySet()
-  def deps = [:]
-  for (i = 0; i < keyset.size(); i++) {
-    if (keyset[i].startsWith('PARAMETER_'))
-    deps << []
-  }
-
-  return getUpstreamEnv().DEPENDENCY_NAME
-}
-
 podTemplate(label: "jenkins-gke-${PIPELINE}", containers: [
   containerTemplate(name: 'gke', image: 'gcr.io/sds-readiness/jenkins-gke:latest', ttyEnabled: true, command: 'cat', alwaysPullImage: true),
 ],
