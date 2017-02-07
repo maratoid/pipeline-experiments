@@ -7,9 +7,7 @@ import hudson.EnvVars
 import org.jenkinsci.plugins.workflow.cps.EnvActionImpl
 import hudson.model.Cause
 
-@Field final String PIPELINE = 'upstream'
-
-podTemplate(label: "jenkins-gke-${PIPELINE}", containers: [
+podTemplate(label: "jenkins-gke-upstream", containers: [
   containerTemplate(name: 'gke', image: 'gcr.io/sds-readiness/jenkins-gke:latest', ttyEnabled: true, command: 'cat', alwaysPullImage: true),
 ],
 volumes: []) {
